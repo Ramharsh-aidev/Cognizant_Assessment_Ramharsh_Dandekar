@@ -5,6 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Local Community Event Portal</title>
+    <style>
+        #welcomeBanner {
+            background-color: blue;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+            padding: 2px 5px;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation: site header and main navigation links -->
@@ -23,8 +37,12 @@
     <!-- Main: primary page content sections -->
     <main>
         <section id="home">
-            <h2>Welcome</h2>
-            <p>Welcome to the Local Community Event Portal. Find events, register, and get local services information.</p>
+            <div id="welcomeBanner">
+                <h2>Welcome</h2>
+                <p>Welcome to the Local Community Event Portal. Find events, register, and get local services information.</p>
+                <p><span style="color: red; font-weight: bold;">Special Offer: Register today and get 20% off your first event!</span></p>
+            </div>
+            <p>Don't miss our <span class="highlight">upcoming community events</span> happening this month.</p>
         </section>
 
         <section id="events">
