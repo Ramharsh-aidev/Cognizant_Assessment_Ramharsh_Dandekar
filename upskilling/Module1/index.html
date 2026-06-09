@@ -33,7 +33,7 @@
             padding: 15px;
             text-align: center;
         }
-        #registration form {
+        #registration form, #feedback form {
             max-width: 500px;
             margin: 0 auto;
             padding: 20px;
@@ -108,7 +108,7 @@
             <table>
                 <tr>
                     <td>
-                        <img src="event1.jpg" alt="Spring Festival" title="Spring Festival" class="event-image">
+                        <img src="event1.jpg" alt="Spring Festival" title="Spring Festival" class="event-image" ondblclick="this.style.transform = this.style.transform === 'scale(1.5)' ? 'scale(1)' : 'scale(1.5)'; this.style.transition = 'transform 0.3s'; this.style.position = 'relative'; this.style.zIndex = '10';">
                         <p><strong>Spring Festival</strong></p>
                         <p>Annual community celebration</p>
                     </td>
@@ -179,6 +179,43 @@
                 </div>
                 <div class="form-group">
                     <output id="formOutput" name="result"></output>
+                </div>
+            </form>
+        </section>
+
+        <section id="feedback">
+            <h2>Event Feedback</h2>
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter 10 digit phone number" 
+                        onblur="let err = document.getElementById('phoneError'); if(!/^\d{10}$/.test(this.value) && this.value !== '') { err.innerText = 'Please enter a valid 10-digit phone number.'; } else { err.innerText = ''; }">
+                    <span id="phoneError" style="color: red; font-size: 0.9em;"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="feedbackEvent">Event Attended:</label>
+                    <select id="feedbackEvent" name="feedbackEvent" onchange="document.getElementById('feeDisplay').innerText = this.value ? 'Event Fee Paid: $' + this.value : '';">
+                        <option value="">Select an event...</option>
+                        <option value="50">Spring Festival ($50)</option>
+                        <option value="20">Sports Day ($20)</option>
+                        <option value="30">Art Exhibition ($30)</option>
+                        <option value="15">Food Festival ($15)</option>
+                        <option value="40">Music Concert ($40)</option>
+                        <option value="25">Charity Run ($25)</option>
+                    </select>
+                    <span id="feeDisplay" style="font-weight: bold; color: blue; display: block; margin-top: 5px;"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="feedbackText">Feedback:</label>
+                    <textarea id="feedbackText" name="feedbackText" rows="4" placeholder="Share your experience..." 
+                        onkeyup="document.getElementById('charCount').innerText = this.value.length;"></textarea>
+                    <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Characters typed: <span id="charCount">0</span></p>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" onclick="alert('Thank you for your valuable feedback!'); document.getElementById('feedbackForm').reset(); document.getElementById('charCount').innerText='0'; document.getElementById('feeDisplay').innerText='';">Submit Feedback</button>
                 </div>
             </form>
         </section>
