@@ -18,6 +18,21 @@
             font-weight: bold;
             padding: 2px 5px;
         }
+        .event-image {
+            border: 3px solid #333;
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table td {
+            padding: 15px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -48,6 +63,42 @@
         <section id="events">
             <h2>Upcoming Events</h2>
             <p>Event listings will appear here.</p>
+            <table>
+                <tr>
+                    <td>
+                        <img src="event1.jpg" alt="Spring Festival" title="Spring Festival" class="event-image">
+                        <p><strong>Spring Festival</strong></p>
+                        <p>Annual community celebration</p>
+                    </td>
+                    <td>
+                        <img src="event2.jpg" alt="Sports Day" title="Sports Day" class="event-image">
+                        <p><strong>Sports Day</strong></p>
+                        <p>Local athletic competitions</p>
+                    </td>
+                    <td>
+                        <img src="event3.jpg" alt="Art Exhibition" title="Art Exhibition" class="event-image">
+                        <p><strong>Art Exhibition</strong></p>
+                        <p>Community art showcase</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="event4.jpg" alt="Food Festival" title="Food Festival" class="event-image">
+                        <p><strong>Food Festival</strong></p>
+                        <p>Local cuisine celebration</p>
+                    </td>
+                    <td>
+                        <img src="event5.jpg" alt="Music Concert" title="Music Concert" class="event-image">
+                        <p><strong>Music Concert</strong></p>
+                        <p>Live performances</p>
+                    </td>
+                    <td>
+                        <img src="event6.jpg" alt="Charity Run" title="Charity Run" class="event-image">
+                        <p><strong>Charity Run</strong></p>
+                        <p>Community fundraiser</p>
+                    </td>
+                </tr>
+            </table>
         </section>
 
         <section id="services">
