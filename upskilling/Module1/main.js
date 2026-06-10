@@ -293,3 +293,77 @@ if (categoryFilter) {
 window.addEventListener('DOMContentLoaded', () => {
     loadEventsAsync();
 });
+
+// Working with Forms & AJAX & Fetch API
+const regForm = document.getElementById('mainRegistrationForm');
+if (regForm) {
+    regForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        // Capture name, email, and selected event using form.elements
+        const elements = this.elements;
+        const nameVal = elements['name'].value.trim();
+        const emailVal = elements['email'].value.trim();
+        const eventTypeVal = elements['eventType'].value;
+        const outputDisplay = elements['result']; // output element named "result"
+        
+        outputDisplay.style.color = "red";
+        
+        if (nameVal.length < 3) {
+            outputDisplay.value = "Error: Name must be at least 3 characters long.";
+            return;
+        }
+        
+        if (!emailVal.includes('@') || !emailVal.includes('.')) {
+            outputDisplay.value = "Error: Please enter a valid email address.";
+            return;
+        }
+        
+        if (!eventTypeVal) {
+            outputDisplay.value = "Error: Please select an event type.";
+            return;
+        }
+        
+        // Show loading state
+        outputDisplay.style.color = "blue";
+        outputDisplay.value = "Submitting your registration, please wait...";
+
+        // Prepare data
+        const payload = {
+            name: nameVal,
+            email: emailVal,
+            event: eventTypeVal,
+            timestamp: new Date().toISOString()
+        };
+
+        // Use fetch() to POST user data to a mock API
+        try {
+            const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status}`);
+            }
+
+            const responseData = await response.json();
+            
+            setTimeout(() => {
+                outputDisplay.style.color = "green";
+                outputDisplay.value = `Success! Reg ID: ${responseData.id}. Confirmation sent to ${responseData.email}.`;
+                regForm.reset();
+            }, 1000);
+
+        } catch (err) {
+            console.error("AJAX Error:", err);
+            setTimeout(() => {
+                outputDisplay.style.color = "red";
+                outputDisplay.value = `Failed to connect to the server: ${err.message}`;
+            }, 1000);
+        }
+    });
+}
