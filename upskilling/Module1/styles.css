@@ -177,9 +177,91 @@ p {
 }
 
 /* Table overrides for legacy layout */
-table {
+#events > table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 15px;
     margin-top: 20px;
+}
+
+/* 7. Table Styling */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    text-align: center;
+    background-color: #fff;
+}
+
+.schedule-table th, .schedule-table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+}
+
+.schedule-table th {
+    background-color: #3498db;
+    color: white;
+}
+
+.schedule-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Outline to highlight selected fields in a form */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: 3px solid #3498db;
+    border-color: #3498db;
+}
+
+/* Visibility vs Display */
+.box {
+    padding: 10px;
+    background: #e0e0e0;
+    border: 1px solid #ccc;
+    margin: 5px;
+}
+.hidden-box {
+    visibility: hidden;
+}
+.none-box {
+    display: none;
+}
+
+/* 9. Multiple Columns in Text */
+.news-article {
+    column-count: 2;
+    column-gap: 30px;
+    column-rule: 1px solid gray;
+    text-align: justify;
+}
+
+/* 10. Responsive Web Design with Media Queries */
+@media screen and (max-width: 768px) {
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+    
+    /* Stack legacy table cells (event cards) */
+    #events > table td.eventCard {
+        display: block;
+        width: 90vw;
+        margin: 10px auto;
+        box-sizing: border-box;
+    }
+    
+    .event-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .news-article {
+        column-count: 1;
+    }
+
+    body {
+        font-size: 14px;
+    }
 }
