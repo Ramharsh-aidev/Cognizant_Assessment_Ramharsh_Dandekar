@@ -114,6 +114,10 @@
 
         <section id="events">
             <h2>Upcoming Events</h2>
+            <div style="margin-bottom: 20px; padding: 15px; background-color: #f0f8ff; border: 1px solid #cce; border-radius: 5px; text-align: center;">
+                <button type="button" onclick="findNearbyEvents()" style="padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Find Nearby Events</button>
+                <p id="geoStatus" style="margin-top: 10px; font-weight: bold;"></p>
+            </div>
             <p>Event listings will appear here.</p>
             <table>
                 <tr>
@@ -289,6 +293,51 @@
                 return msg;
             }
         };
+
+        function findNearbyEvents() {
+            const statusText = document.getElementById('geoStatus');
+            statusText.style.color = 'black';
+            statusText.innerText = 'Locating...';
+
+            if (!navigator.geolocation) {
+                statusText.style.color = 'red';
+                statusText.innerText = 'Geolocation is not supported by your browser.';
+                return;
+            }
+
+            const success = (position) => {
+                const latitude  = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                statusText.style.color = 'green';
+                statusText.innerText = `Coordinates: Latitude ${latitude.toFixed(4)}, Longitude ${longitude.toFixed(4)}`;
+            };
+
+            const error = (err) => {
+                statusText.style.color = 'red';
+                switch(err.code) {
+                    case err.PERMISSION_DENIED:
+                        statusText.innerText = 'Error: Geolocation permission denied.';
+                        break;
+                    case err.POSITION_UNAVAILABLE:
+                        statusText.innerText = 'Error: Location information is unavailable.';
+                        break;
+                    case err.TIMEOUT:
+                        statusText.innerText = 'Error: The request to get user location timed out.';
+                        break;
+                    case err.UNKNOWN_ERROR:
+                        statusText.innerText = 'Error: An unknown error occurred.';
+                        break;
+                }
+            };
+
+            const options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+
+            navigator.geolocation.getCurrentPosition(success, error, options);
+        }
     </script>
 </body>
 </html>
