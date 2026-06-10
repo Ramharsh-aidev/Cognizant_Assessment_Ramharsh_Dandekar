@@ -87,3 +87,83 @@ function handleRegistration(targetEventName) {
 
 // Initialize display after DOM is loaded
 window.addEventListener('DOMContentLoaded', displayEvents);
+
+// 4. Functions, Scope, Closures, Higher-Order Functions
+function createRegistrationTracker(category) {
+    let totalRegistrations = 0; // scoped variable tracked by closure
+    
+    return function registerUser(eventObj) {
+        if (eventObj.category === category) {
+            if (eventObj.seats > 0) {
+                eventObj.seats--;
+                totalRegistrations++;
+                console.log(`Registered for ${eventObj.name}. Total ${category} registrations: ${totalRegistrations}`);
+            } else {
+                console.log(`Registration failed: ${eventObj.name} is full.`);
+            }
+        } else {
+            console.log(`Event category mismatch. Expected ${category}.`);
+        }
+    };
+}
+
+function filterEventsByCategory(eventsArray, callbackCondition) {
+    const results = [];
+    for (let event of eventsArray) {
+        if (callbackCondition(event)) {
+            results.push(event);
+        }
+    }
+    return results;
+}
+
+// 5. Objects and Prototypes
+class CommunityEvent {
+    constructor(name, category, date, seats) {
+        this.name = name;
+        this.category = category;
+        this.date = date;
+        this.seats = seats;
+    }
+
+    checkAvailability() {
+        return this.seats > 0 ? "Seats available" : "Fully booked";
+    }
+}
+
+const sampleEventObj = new CommunityEvent("Art Exhibition", "Art", "2026-07-10", 20);
+console.log("--- Object Entries Example ---");
+Object.entries(sampleEventObj).forEach(([key, value]) => {
+    console.log(`${key}: ${value}`);
+});
+
+// 6. Arrays and Methods
+const allEvents = [
+    new CommunityEvent("Spring Festival Opening", "Community", "2026-06-15", 50),
+    new CommunityEvent("Acoustic Night", "Music", "2026-06-25", 10),
+    new CommunityEvent("Summer Jazz Festival", "Music", "2026-07-20", 0)
+];
+
+function addEvent(name, category, date, seats) {
+    const newEvent = new CommunityEvent(name, category, date, seats);
+    allEvents.push(newEvent); // Add new events using .push()
+    console.log(`Added Event via push(): ${name}`);
+}
+
+addEvent("Workshop on Baking", "Workshop", "2026-08-05", 15);
+
+console.log("--- Array Methods ---");
+const musicEvents = allEvents.filter(event => event.category === "Music");
+console.log("Music Events (.filter):", musicEvents);
+
+const formattedCards = allEvents.map(event => `[CARD] ${event.name} - Category: ${event.category}`);
+console.log("Formatted Cards (.map):");
+formattedCards.forEach(card => console.log(card));
+const registerMusicEvent = createRegistrationTracker("Music");
+console.log("--- Testing Closure ---");
+registerMusicEvent(allEvents.find(e => e.name === "Acoustic Night")); // registers successfully
+registerMusicEvent(allEvents.find(e => e.name === "Acoustic Night")); // registers successfully
+
+
+const searchResult = filterEventsByCategory(allEvents, (event) => event.seats > 0 && event.category === "Workshop");
+console.log("Dynamic Filter Result (Available Workshops):", searchResult);
