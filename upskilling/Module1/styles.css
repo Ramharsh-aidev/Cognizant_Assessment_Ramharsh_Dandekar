@@ -1,0 +1,110 @@
+/* Universal Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Element Styles */
+h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Header styles */
+#mainHeader {
+    background-color: blue;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/* Event container styles */
+.eventCard {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.event-image {
+    border: 3px solid #333;
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Grouping styles for headings and text */
+h3, p {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Form Styles */
+#registration form, #feedback form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Style for main CTA button */
+.form-group button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-group button:hover {
+    background-color: #0056b3;
+}
+
+.form-group output {
+    font-weight: bold;
+    color: green;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Utility Classes */
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+    padding: 2px 5px;
+}
+
+/* Table overrides for legacy layout */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 15px;
+    margin-top: 20px;
+}
