@@ -367,3 +367,19 @@ if (regForm) {
         }
     });
 }
+
+// jQuery and JS Frameworks
+$(document).ready(function() {
+    let isVisible = true;
+    $('#registerBtn').click(function() {
+        if (isVisible) {
+            $('.jquery-event-card').fadeOut('slow');
+            $(this).text("Show Event via jQuery");
+        } else {
+            $('.jquery-event-card').fadeIn('slow');
+            $(this).text("Hide Event via jQuery");
+        }
+        isVisible = !isVisible;
+    });
+});
+

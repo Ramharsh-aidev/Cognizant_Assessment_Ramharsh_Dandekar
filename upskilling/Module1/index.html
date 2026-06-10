@@ -50,6 +50,16 @@
         <section id="events">
             <h2>Upcoming Events</h2>
             
+            <!-- jQuery Demo Section -->
+            <div id="jquery-demo" style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; background-color: #fdfdfd; border-radius: 8px;">
+                <h3>Featured Event (jQuery Demo)</h3>
+                <div class="jquery-event-card" style="padding: 10px; border: 1px solid #ccc; background-color: #fff; margin-bottom: 10px;">
+                    <p><strong>Grand City Gala</strong></p>
+                    <p>Date: 2026-11-20</p>
+                </div>
+                <button id="registerBtn" style="padding: 8px 12px; cursor: pointer; background-color: #8e44ad; color: white; border: none; border-radius: 4px;">Toggle Event via jQuery</button>
+            </div>
+            
             <!-- Dynamic Events Section -->
             <div id="dynamic-events" style="margin-bottom: 30px; padding: 20px; background-color: #f9f9f9; border-radius: 8px; border: 1px solid #ddd;">
                 <h3>Live Search & Dynamic Events (Mock API)</h3>
@@ -341,6 +351,8 @@
             navigator.geolocation.getCurrentPosition(success, error, options);
         }
     </script>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
