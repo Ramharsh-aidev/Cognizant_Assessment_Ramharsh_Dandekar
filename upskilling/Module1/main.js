@@ -167,3 +167,129 @@ registerMusicEvent(allEvents.find(e => e.name === "Acoustic Night")); // registe
 
 const searchResult = filterEventsByCategory(allEvents, (event) => event.seats > 0 && event.category === "Workshop");
 console.log("Dynamic Filter Result (Available Workshops):", searchResult);
+
+// DOM Manipulation, Event Handling, Async JS, Modern JS
+let fetchedEvents = [];
+
+const searchInput = document.querySelector('#searchInput');
+const categoryFilter = document.querySelector('#categoryFilter');
+const dynamicContainer = document.querySelector('#dynamicEventsContainer');
+const loadingSpinner = document.querySelector('#loadingSpinner');
+
+// Modern JS: Default parameters & Destructuring
+const renderEventCards = (eventsToRender = []) => {
+    if (!dynamicContainer) return;
+    dynamicContainer.innerHTML = ''; // clear current cards
+
+    eventsToRender.forEach(eventObj => {
+        // Modern JS: Destructuring object properties
+        const { name, category, date, seats } = eventObj;
+
+        // DOM Manipulation: createElement()
+        const card = document.createElement('div');
+        card.className = 'eventCard';
+        card.style.flex = "1 1 250px";
+        
+        card.innerHTML = `
+            <h3>${name}</h3>
+            <p><strong>Category:</strong> ${category}</p>
+            <p><strong>Date:</strong> ${date}</p>
+            <p><strong>Seats:</strong> <span class="seat-count">${seats}</span></p>
+            <div style="margin-top: 10px;">
+                <button class="register-btn" style="padding: 5px 10px; cursor: pointer; background-color: #28a745; color: white; border: none; border-radius: 3px;">Register</button>
+                <button class="cancel-btn" style="padding: 5px 10px; cursor: pointer; background-color: #dc3545; color: white; border: none; border-radius: 3px; margin-left: 5px;">Cancel</button>
+            </div>
+        `;
+
+        // Event Handling: onclick for Register and Cancel
+        const registerBtn = card.querySelector('.register-btn');
+        const cancelBtn = card.querySelector('.cancel-btn');
+        const seatDisplay = card.querySelector('.seat-count');
+
+        registerBtn.onclick = () => {
+            if (eventObj.seats > 0) {
+                eventObj.seats--; // manipulate data
+                seatDisplay.innerText = eventObj.seats; // DOM update
+                alert(`Registered successfully for ${name}!`);
+            } else {
+                alert(`Sorry, no seats left for ${name}.`);
+            }
+        };
+
+        cancelBtn.onclick = () => {
+            eventObj.seats++; // manipulate data
+            seatDisplay.innerText = eventObj.seats; // DOM update
+            alert(`Registration cancelled for ${name}.`);
+        };
+
+        dynamicContainer.appendChild(card);
+    });
+};
+
+function fetchMockEvents() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            // resolve with hardcoded array of event objects
+            resolve([
+                { name: "Tech Innovators Meetup", category: "Community", date: "2026-09-01", seats: 40 },
+                { name: "Symphony Concert", category: "Music", date: "2026-09-15", seats: 200 },
+                { name: "Frontend Workshop", category: "Workshop", date: "2026-09-20", seats: 25 },
+                { name: "Jazz Evening", category: "Music", date: "2026-10-05", seats: 50 }
+            ]);
+        }, 1500); 
+    });
+}
+
+// Async/Await for fetching events
+async function loadEventsAsync() {
+    if (!dynamicContainer) return;
+    loadingSpinner.style.display = 'block';
+    
+    try {
+        const data = await fetchMockEvents();
+        fetchedEvents = [...data];
+        renderEventCards(fetchedEvents);
+    } catch (error) {
+        console.error("Error loading events:", error);
+        dynamicContainer.innerHTML = `<p style="color:red;">Failed to load events.</p>`;
+    } finally {
+        loadingSpinner.style.display = 'none';
+    }
+}
+
+// Filtering Logic
+function filterAndRender() {
+    const searchText = searchInput.value.toLowerCase();
+    const selectedCategory = categoryFilter.value;
+
+    let filtered = [...fetchedEvents];
+
+    if (searchText) {
+        filtered = filtered.filter(e => e.name.toLowerCase().includes(searchText));
+    }
+    
+    if (selectedCategory !== "All") {
+        filtered = filtered.filter(e => e.category === selectedCategory);
+    }
+
+    renderEventCards(filtered);
+}
+
+// Event Handling: keyup for quick search
+if (searchInput) {
+    searchInput.addEventListener('keyup', (e) => {
+        filterAndRender();
+    });
+}
+
+// Event Handling: onchange for category filter
+if (categoryFilter) {
+    categoryFilter.onchange = () => {
+        filterAndRender();
+    };
+}
+
+// Trigger load on DOMContentLoaded
+window.addEventListener('DOMContentLoaded', () => {
+    loadEventsAsync();
+});
