@@ -102,6 +102,16 @@
             <p>Don't miss our <span class="highlight">upcoming community events</span> happening this month.</p>
         </section>
 
+        <section id="promo" style="text-align: center; margin: 20px 0; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: #eef;">
+            <h2>Event Promo</h2>
+            <p>Check out our short promotional video:</p>
+            <video width="480" controls oncanplay="document.getElementById('videoMessage').innerText = 'Video ready to play!';">
+                <source src="promo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p id="videoMessage" style="color: green; font-weight: bold; min-height: 20px;"></p>
+        </section>
+
         <section id="events">
             <h2>Upcoming Events</h2>
             <p>Event listings will appear here.</p>
@@ -236,5 +246,22 @@
         <p>&copy; <span id="year">2026</span> Local City Council</p>
         <p><a href="help.html" target="_blank">Help</a></p>
     </footer>
+
+    <script>
+        window.onbeforeunload = function(e) {
+            let nameField = document.getElementById('name');
+            let phoneField = document.getElementById('phone');
+            let isDirty = false;
+
+            if (nameField && nameField.value !== '') isDirty = true;
+            if (phoneField && phoneField.value !== '') isDirty = true;
+
+            if (isDirty) {
+                let msg = 'You have unfinished form entries. Are you sure you want to leave?';
+                e.returnValue = msg;
+                return msg;
+            }
+        };
+    </script>
 </body>
 </html>
