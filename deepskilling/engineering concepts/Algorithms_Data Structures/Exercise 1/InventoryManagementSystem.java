@@ -2,14 +2,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InventoryManagementSystem {
-    private Map<String, Product> inventory;
+    private Map<String, InventoryProduct> inventory;
 
     public InventoryManagementSystem() {
         this.inventory = new HashMap<>();
     }
 
     // Add Product
-    public void addProduct(Product product) {
+    public void addProduct(InventoryProduct product) {
         if (inventory.containsKey(product.getProductId())) {
             System.out.println("Error: Product with ID " + product.getProductId() + " already exists.");
         } else {
@@ -21,7 +21,7 @@ public class InventoryManagementSystem {
     // Update Product
     public void updateProduct(String productId, String newName, Integer newQuantity, Double newPrice) {
         if (inventory.containsKey(productId)) {
-            Product product = inventory.get(productId);
+            InventoryProduct product = inventory.get(productId);
             if (newName != null) {
                 product.setProductName(newName);
             }
@@ -52,7 +52,7 @@ public class InventoryManagementSystem {
         if (inventory.isEmpty()) {
             System.out.println("Inventory is empty.");
         } else {
-            for (Product product : inventory.values()) {
+            for (InventoryProduct product : inventory.values()) {
                 System.out.println(product);
             }
         }
@@ -63,8 +63,8 @@ public class InventoryManagementSystem {
         InventoryManagementSystem ims = new InventoryManagementSystem();
 
         // Testing the implementation
-        Product p1 = new Product("P001", "Gaming Laptop", 15, 1499.99);
-        Product p2 = new Product("P002", "Wireless Mouse", 50, 29.99);
+        InventoryProduct p1 = new InventoryProduct("P001", "Gaming Laptop", 15, 1499.99);
+        InventoryProduct p2 = new InventoryProduct("P002", "Wireless Mouse", 50, 29.99);
 
         // Add
         ims.addProduct(p1);

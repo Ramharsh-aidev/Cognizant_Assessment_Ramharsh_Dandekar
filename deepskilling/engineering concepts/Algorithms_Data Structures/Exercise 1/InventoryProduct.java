@@ -1,10 +1,10 @@
-public class Product {
+public class InventoryProduct {
     private String productId;
     private String productName;
     private int quantity;
     private double price;
 
-    public Product(String productId, String productName, int quantity, double price) {
+    public InventoryProduct(String productId, String productName, int quantity, double price) {
         this.productId = productId;
         this.productName = productName;
         this.quantity = quantity;
@@ -45,7 +45,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "InventoryProduct{" +
                 "productId='" + productId + '\'' +
                 ", productName='" + productName + '\'' +
                 ", quantity=" + quantity +
